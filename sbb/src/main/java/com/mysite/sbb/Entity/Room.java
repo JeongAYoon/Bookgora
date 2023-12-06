@@ -5,12 +5,13 @@ import java.util.*;
 
 import jakarta.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +39,15 @@ public class Room {
     private Integer status; // 0 = disabled, 1 = enabled
 
     private LocalDateTime createDate;
+
+    @Builder
+    public Room(String subject, Book book, String body, SiteUser creator) {
+        this.subject = subject;
+        this.book = book;
+        this.body = body;
+        this.creator = creator;
+        this.participants = new ArrayList<SiteUser>();
+        this.status = 1;
+        this.createDate = LocalDateTime.now();
+    }
 }
