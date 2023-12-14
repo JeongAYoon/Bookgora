@@ -23,7 +23,7 @@ public class UserController {
         return userService.findBy(params);
     }
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public Optional<SiteUser> signup(@RequestBody final SignupRequestDTO params) {
         if(!userService.existsByEmail(params.getEmail()) && !userService.existsByUsername(params.getUsername())) {
             return Optional.of(userService.create(params.getUsername(), params.getEmail(), params.getPassword1()));

@@ -34,8 +34,6 @@ public class Room {
     @JoinTable(name = "USER_PARTICIPANT")
     private List<SiteUser> participants = new ArrayList<>();
 
-    private Integer userCount; // 현재 로그인 상태인 유저 수
-
     private Integer status; // 0 = disabled, 1 = enabled
 
     private LocalDateTime createDate;
@@ -46,7 +44,7 @@ public class Room {
         this.book = book;
         this.body = body;
         this.creator = creator;
-        this.participants = new ArrayList<SiteUser>();
+        this.participants = new ArrayList<SiteUser>(List.of(creator));
         this.status = 1;
         this.createDate = LocalDateTime.now();
     }

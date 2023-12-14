@@ -26,6 +26,10 @@ public class UserService {
         return userRepository.findByUsernameAndPassword(params.getUsername(), params.getPassword());
     }
 
+    public Optional<SiteUser> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public SiteUser create(String username, String email, String password) {
         SiteUser user = new SiteUser();
         user.setUsername(username);

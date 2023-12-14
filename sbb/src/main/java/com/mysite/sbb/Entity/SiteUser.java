@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import jakarta.persistence.*;
-import com.mysite.sbb.Entity.Room;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -29,7 +28,7 @@ public class SiteUser {
     @Column(unique = true)
     private String email;
 
-    @ColumnDefault("${default.image.address}")
+    @Column(nullable = true)
     private String profileImage;
 
     @ManyToMany(mappedBy = "participants")
