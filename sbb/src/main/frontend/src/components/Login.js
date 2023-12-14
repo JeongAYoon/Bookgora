@@ -5,7 +5,7 @@ function Login() {
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
 
-    const idRegEx = /^[A-Za-z0-9]{2, 12}$/;
+    const idRegEx = /^[A-Za-z0-9]{2,12}$/;
     const passwordRegEx = /^[A-Za-z0-9]{8,20}$/;
 
     const handleInputId = (e) => {

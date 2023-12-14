@@ -2,15 +2,11 @@ package com.mysite.sbb.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import com.mysite.sbb.DTO.LoginRequestDTO;
-import com.mysite.sbb.DTO.RoomPagingDTO;
 import com.mysite.sbb.DataNotFoundException;
 
 import com.mysite.sbb.Entity.Book;
 import com.mysite.sbb.Entity.Room;
-import com.mysite.sbb.Entity.SiteUser;
 import com.mysite.sbb.Repository.RoomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,15 +21,6 @@ public class RoomService {
 
     public List<Room> getList(){
         return this.roomRepository.findAll();
-    }
-
-    public Room getRoom(Integer id){
-        Optional<Room> room = this.roomRepository.findById(id);
-        if (room.isPresent()){
-            return room.get();
-        } else{
-            throw new DataNotFoundException("room not found");
-        }
     }
 
     public Page<Room> findByStatus(Pageable pageable){
@@ -56,4 +43,19 @@ public class RoomService {
         return new RoomPagingDTO(rooms, roomPage.getTotalPages(), roomPage.getTotalElements());
     }
 */
+
+    public Room create(Room params) {
+        Room room = new Room();
+
+        room.setSubject(params.getSubject());
+        room.setBook(params.getBook());
+        room.setBody(params.getBody());
+        room.setCreator(params.getCreator());
+        room.setParticipants(params.getParticipants());
+        room.setStatus(params.getStatus());
+        room.setCreateDate(params.getCreateDate());
+        this.roomRepository.save(room);
+
+        return room;
+    }
 }

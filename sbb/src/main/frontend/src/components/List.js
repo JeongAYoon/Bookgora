@@ -1,4 +1,5 @@
-import React from 'react';
+import {React, useEffect} from 'react';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
 function List() {
@@ -16,11 +17,13 @@ function List() {
         <div className="list">
             <div className="w-[385px] h-[180px] mx-9 my-9 shadow flex">
                 <img className="w-[145px] h-[180px]" src="https://via.placeholder.com/145x180" alt="Placeholder" />
-                <div className="w-[240px] h-[180px] flex-row px-4 py-4">
+                <div className="w-[240px] h-[180px] flex-row px-3 py-3">
                     <h5 className="flex flex-col mb-1">{truncateText(longText, maxLength)}</h5>
-                    <p className="mb-1">인간실격</p>
-                    <p className="relative text-sm mb-1">다자이 오사무</p>
-                    <p className="relative text-sm text-right">생성자 : ryujunghwan</p>
+                    <p className="mb-1 text-sm">인간실격</p>
+                    <p className="relative text-xs mb-1">다자이 오사무</p>
+                    <p className="relative text-xs mb-1">생성자 : ryujunghwan</p>
+                    <p className="relative text-xs mb-1">2023-11-16 오후 4:50</p>
+                    <Button variant="primary" type="button" size="sm" className="relative left-36 bottom-4">토론하기</Button>
                 </div>
             </div>
         </div>

@@ -5,9 +5,14 @@ import java.util.Objects;
 
 import java.util.List;
 import java.util.Collections;
+import java.util.Optional;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.mysite.sbb.DTO.BookSearchResponseDTO;
+import com.mysite.sbb.DTO.CreateBookRequestDTO;
+import com.mysite.sbb.Entity.Book;
 import com.mysite.sbb.Entity.NaverResult;
+import com.mysite.sbb.Service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +28,21 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class BookController {
-
+    private final BookService bookService;
 
     @PostMapping ("/book/search")
-    public List<BookSearchResponseDTO> searchBooks(@RequestBody String text) {
+    public List<BookSearchResponseDTO> searchBooks(@RequestBody String requestBody) {
+        ObjectMapper om = new ObjectMapper();
+        String text;
+
+        try {
+            JsonNode jsonNode = om.readTree(requestBody);
+            text = jsonNode.get("text").asText();
+        } catch (JsonProcessingException | NullPointerException e) {
+            String errorMessage = "JSON 파싱 중 에러 발생: " + e.getMessage();
+            throw new RuntimeException(errorMessage);
+        }
+
         String clientId = "MnsxtlHwxcz5MqWLRHq_";
         String clientSecret = "JfV2UfZJmT";
 
@@ -46,7 +62,6 @@ public class BookController {
                 .header("X-Naver-Client-Id", clientId)
                 .header("X-Naver-Client-Secret", clientSecret)
                 .build();
-        ObjectMapper om = new ObjectMapper();
         NaverResult result;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> rest;
@@ -62,6 +77,20 @@ public class BookController {
             return Objects.requireNonNull(result).getItems();
         } else {
             return Collections.emptyList();
+        }
+    }
+
+    @PostMapping("/book/create")
+    public ResponseEntity<?> createBook(@RequestBody final CreateBookRequestDTO params) {
+        if(this.bookService.findByIsbn(params.getIsbn()).isPresent())
+        {
+            Optional<Book> book = this.bookService.findByIsbn(params.getIsbn());
+
+            return ResponseEntity.ok(book);
+        } else {
+            Book book = this.bookService.create(params.toEntity());
+
+            return ResponseEntity.ok(book);
         }
     }
 }
