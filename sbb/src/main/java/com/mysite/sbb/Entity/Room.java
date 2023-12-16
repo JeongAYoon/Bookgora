@@ -3,6 +3,7 @@ package com.mysite.sbb.Entity;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -26,13 +27,9 @@ public class Room {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "CREATOR")
     private SiteUser creator;
-
-    @ManyToMany
-    @JoinTable(name = "USER_PARTICIPANT")
-    private List<SiteUser> participants = new ArrayList<>();
 
     private Integer status; // 0 = disabled, 1 = enabled
 
@@ -44,7 +41,6 @@ public class Room {
         this.book = book;
         this.body = body;
         this.creator = creator;
-        this.participants = new ArrayList<SiteUser>(List.of(creator));
         this.status = 1;
         this.createDate = LocalDateTime.now();
     }

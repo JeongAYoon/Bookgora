@@ -27,11 +27,11 @@ function Login() {
                     if(response.data) {
                         window.location.href = '/';
                         sessionStorage.setItem("user", JSON.stringify(response.data));
-                    } else {
-                        alert("아이디 혹은 패스워드를 잘못 입력하였습니다.");
                     }
                 })
-                .catch();
+                .catch((error) => {
+                    alert("아이디 혹은 패스워드를 잘못 입력하였습니다.");
+                });
         } else {
             alert("형식이 올바르지 않습니다.");
         }

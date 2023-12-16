@@ -41,11 +41,11 @@ function Signup() {
                         alert("회원가입에 성공하였습니다.")
                         window.location.href = '/';
                         sessionStorage.setItem("user", JSON.stringify(response.data));
-                    } else {
-                        alert("중복되는 아이디 혹은 이메일이 있습니다.");
                     }
                 })
-                .catch();
+                .catch((error) => {
+                    alert("중복되는 아이디 혹은 이메일이 있습니다.");
+                });
         } else {
             alert("형식이 올바르지 않거나 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
         }

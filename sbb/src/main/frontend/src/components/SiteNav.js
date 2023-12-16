@@ -27,7 +27,7 @@ function SiteNav() {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/">홈</Nav.Link>
-                        <Nav.Link href="/room/list">토론방 검색</Nav.Link>
+                        <Nav.Link href="#">토론방 검색</Nav.Link>
                         <Nav.Link href="/room/create">토론방 생성</Nav.Link>
                     </Nav>
                     <Nav>
