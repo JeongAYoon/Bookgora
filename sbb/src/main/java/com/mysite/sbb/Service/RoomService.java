@@ -27,23 +27,6 @@ public class RoomService {
         return roomRepository.findByStatus(1, pageable);
     }
 
-    public Page<Room> findBySubjectContaining(String subject, Pageable pageable){
-        return roomRepository.findBySubjectContaining(subject, pageable);
-    }
-
-    public Page<Room> findByBookContaining(Book book, Pageable pageable){
-        return roomRepository.findByBookContaining(book, pageable);
-    }
-/*
-    public RoomPagingDTO getRoomsPaged(Pageable pageable){
-        Page<Room> roomPage = roomRepository.findAll(pageable);
-        List<Room> rooms = roomPage.getContent().stream()
-
-
-        return new RoomPagingDTO(rooms, roomPage.getTotalPages(), roomPage.getTotalElements());
-    }
-*/
-
     public Room create(Room params) {
         Room room = new Room();
 
@@ -51,7 +34,6 @@ public class RoomService {
         room.setBook(params.getBook());
         room.setBody(params.getBody());
         room.setCreator(params.getCreator());
-        room.setParticipants(params.getParticipants());
         room.setStatus(params.getStatus());
         room.setCreateDate(params.getCreateDate());
         this.roomRepository.save(room);

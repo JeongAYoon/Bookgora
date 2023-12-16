@@ -89,7 +89,7 @@ function CreateRoom() {
                                 username: username,
                             })
                             .then((response) => {
-                                console.log(response.data);
+                                window.location.href = '/';
                             })
                             .catch();
                     })

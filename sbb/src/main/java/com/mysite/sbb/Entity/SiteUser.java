@@ -3,6 +3,7 @@ package com.mysite.sbb.Entity;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -31,9 +32,6 @@ public class SiteUser {
     @Column(nullable = true)
     private String profileImage;
 
-    @ManyToMany(mappedBy = "participants")
-    private List<Room> rooms = new ArrayList<>();
-
     private LocalDateTime createDate;
 
     @Builder
@@ -41,7 +39,6 @@ public class SiteUser {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.rooms = new ArrayList<Room>();
         this.createDate = LocalDateTime.now();
     }
 }

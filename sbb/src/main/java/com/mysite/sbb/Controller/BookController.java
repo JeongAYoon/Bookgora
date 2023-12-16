@@ -84,13 +84,13 @@ public class BookController {
     public ResponseEntity<?> createBook(@RequestBody final CreateBookRequestDTO params) {
         if(this.bookService.findByIsbn(params.getIsbn()).isPresent())
         {
-            Optional<Book> book = this.bookService.findByIsbn(params.getIsbn());
+            Book book = this.bookService.findByIsbn(params.getIsbn()).get();
 
-            return ResponseEntity.ok(book);
+            return ResponseEntity.ok().build();
         } else {
             Book book = this.bookService.create(params.toEntity());
 
-            return ResponseEntity.ok(book);
+            return ResponseEntity.ok().build();
         }
     }
 }
